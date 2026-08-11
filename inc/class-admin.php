@@ -1,9 +1,9 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 final class Admin {
-	const OPTIONS_MENU_SLUG = 'example-integration-settings';
+	const OPTIONS_MENU_SLUG = 'connector-controls-settings';
 
 	/** @var self|null */
 	private static $instance;
@@ -27,12 +27,12 @@ final class Admin {
 	}
 
 	public function admin_init(): void {
-		$plugin = plugin_basename( 'example-integration/example-integration.php' );
+		$plugin = plugin_basename( 'connector-controls/connector-controls.php' );
 		add_filter( 'plugin_action_links_' . $plugin, [ $this, 'plugin_action_links' ] );
 	}
 
 	public function admin_menu(): void {
-		add_options_page( __( 'Example Integration Settings', 'example-integration' ), __( 'Example Integration Settings', 'example-integration' ), 'manage_options', self::OPTIONS_MENU_SLUG, [ AdminSettings::class, 'settings_page' ] );
+		add_options_page( __( 'Connector Controls Settings', 'connector-controls' ), __( 'Connector Controls Settings', 'connector-controls' ), 'manage_options', self::OPTIONS_MENU_SLUG, [ AdminSettings::class, 'settings_page' ] );
 	}
 
 	/**
@@ -41,7 +41,7 @@ final class Admin {
 	 */
 	public function plugin_action_links( array $links ): array {
 		$url               = esc_url( admin_url( 'options-general.php?page=' . self::OPTIONS_MENU_SLUG ) );
-		$link              = '<a href="' . $url . '">' . __( 'Settings', 'example-integration' ) . '</a>';
+		$link              = '<a href="' . $url . '">' . __( 'Settings', 'connector-controls' ) . '</a>';
 		$links['settings'] = $link;
 		return $links;
 	}

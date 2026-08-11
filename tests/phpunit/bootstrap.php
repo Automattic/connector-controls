@@ -25,13 +25,13 @@ if ( ! defined( 'WPMU_PLUGIN_DIR' ) ) {
 /** @psalm-suppress UnresolvableInclude */
 require_once $_tests_dir . '/includes/functions.php';
 
-if ( ! defined( 'VIP_EXAMPLE_INTEGRATION_CONFIG' ) ) {
+if ( ! defined( 'VIP_CONNECTOR_CONTROLS_CONFIG' ) ) {
 	// Mirror the VIP platform: runtime config is defined before the plugin loads.
-	define( 'VIP_EXAMPLE_INTEGRATION_CONFIG', require __DIR__ . '/../../fixtures/config-valid.php' );
+	define( 'VIP_CONNECTOR_CONTROLS_CONFIG', require __DIR__ . '/../../fixtures/config-valid.php' );
 }
 
 function _manually_load_plugin(): void {
-	require_once __DIR__ . '/../../example-integration.php';
+	require_once __DIR__ . '/../../connector-controls.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

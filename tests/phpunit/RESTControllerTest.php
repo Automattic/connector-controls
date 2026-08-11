@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 use Spy_REST_Server;
 use WP_REST_Request;
@@ -10,7 +10,7 @@ use WP_REST_Server;
 use WP_Test_REST_TestCase;
 
 /**
- * @covers \ExampleVendor\ExampleIntegration\REST_Controller
+ * @covers \Automattic\ConnectorControls\REST_Controller
  */
 class RESTControllerTest extends WP_Test_REST_TestCase {
 	/**

@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./vip-manifest.schema.json
 #
-# Handoff manifest for the Example Integration.
+# Handoff manifest for the Connector Controls.
 #
 # This is the single file WordPress VIP reads to register and load your
 # integration — VIP never sees your repo. `composer setup` (or `vip-integration
@@ -14,26 +14,26 @@ manifest_version: 1
 manifest_kind: vip-integration-handoff
 
 integration:
-  slug: example-integration
-  display_name: Example Integration
+  slug: connector-controls
+  display_name: Connector Controls
   summary: Reference integration built from the VIP Integrations Starter Kit.
   partner:
-    name: Example Vendor
+    name: Automattic
     support_contact: support@example.com
 
 documentation:
-  public_url: https://example.com/docs/example-integration
-  support_url: https://example.com/docs/example-integration/support
+  public_url: https://example.com/docs/connector-controls
+  support_url: https://example.com/docs/connector-controls/support
 
 runtime:
   wordpress_plugin:
-    folder: example-integration
-    entry_file: example-integration.php
-    php_namespace: 'ExampleVendor\ExampleIntegration'
+    folder: connector-controls
+    entry_file: connector-controls.php
+    php_namespace: 'Automattic\ConnectorControls'
     scope: site
 
 runtime_config:
-  constant_name: VIP_EXAMPLE_INTEGRATION_CONFIG
+  constant_name: VIP_CONNECTOR_CONTROLS_CONFIG
   fields:
     - key: api_base_url
       label: API base URL
@@ -52,11 +52,11 @@ runtime_config:
       help: Text rendered in the site footer signature.
 
 telemetry:
-  prefix: example_integration_
+  prefix: connector_controls_
   default_properties:
     - plugin_version
   events:
-    - name: example_integration_sum_requested
+    - name: connector_controls_sum_requested
       type: tracks
       trigger: The REST /sum endpoint serves a request.
       properties:

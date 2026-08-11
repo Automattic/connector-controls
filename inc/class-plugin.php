@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 final class Plugin {
 	/** @var self|null */
@@ -45,12 +45,12 @@ final class Plugin {
 		$details = $config->is_available()
 			? sprintf(
 				/* translators: %s: comma-separated list of missing config fields */
-				__( 'missing required fields: %s', 'example-integration' ),
+				__( 'missing required fields: %s', 'connector-controls' ),
 				implode( ', ', $config->missing_fields() )
 			)
 			: sprintf(
 				/* translators: %s: name of the runtime config constant */
-				__( 'the %s constant is not defined', 'example-integration' ),
+				__( 'the %s constant is not defined', 'connector-controls' ),
 				Config::CONSTANT_NAME
 			);
 
@@ -59,7 +59,7 @@ final class Plugin {
 			esc_html(
 				sprintf(
 					/* translators: %s: reason the configuration is incomplete */
-					__( 'Example Integration setup is incomplete (%s). Its REST API endpoints are disabled until the configuration is completed in the VIP Dashboard.', 'example-integration' ),
+					__( 'Connector Controls setup is incomplete (%s). Its REST API endpoints are disabled until the configuration is completed in the VIP Dashboard.', 'connector-controls' ),
 					$details
 				)
 			)
@@ -67,7 +67,7 @@ final class Plugin {
 	}
 
 	public function wp_footer(): void {
-		$label = (string) Config::get_instance()->get( 'signature_label', 'Example Integration' );
-		printf( '<p class="example-integration-signature">%s</p>', esc_html( $label ) );
+		$label = (string) Config::get_instance()->get( 'signature_label', 'Connector Controls' );
+		printf( '<p class="connector-controls-signature">%s</p>', esc_html( $label ) );
 	}
 }

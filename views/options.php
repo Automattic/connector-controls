@@ -1,8 +1,8 @@
 <?php
 
-use ExampleVendor\ExampleIntegration\Admin;
-use ExampleVendor\ExampleIntegration\AdminSettings;
-use ExampleVendor\ExampleIntegration\Config;
+use Automattic\ConnectorControls\Admin;
+use Automattic\ConnectorControls\AdminSettings;
+use Automattic\ConnectorControls\Config;
 
 defined( 'ABSPATH' ) || die();
 
@@ -11,12 +11,12 @@ $config = Config::get_instance();
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
-	<h2><?php esc_html_e( 'Runtime configuration', 'example-integration' ); ?></h2>
+	<h2><?php esc_html_e( 'Runtime configuration', 'connector-controls' ); ?></h2>
 	<p>
 		<?php
 		printf(
 			/* translators: %s: name of the runtime config constant */
-			esc_html__( 'These values are injected by the VIP platform through the %s constant and are read-only here. The settings below are stored per-site — keep platform-managed values in the constant and only site-specific tweaks as options.', 'example-integration' ),
+			esc_html__( 'These values are injected by the VIP platform through the %s constant and are read-only here. The settings below are stored per-site — keep platform-managed values in the constant and only site-specific tweaks as options.', 'connector-controls' ),
 			'<code>' . esc_html( Config::CONSTANT_NAME ) . '</code>'
 		);
 		?>
@@ -25,8 +25,8 @@ $config = Config::get_instance();
 	<table class="widefat striped" style="max-width: 40em;">
 		<thead>
 			<tr>
-				<th scope="col"><?php esc_html_e( 'Key', 'example-integration' ); ?></th>
-				<th scope="col"><?php esc_html_e( 'Value', 'example-integration' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Key', 'connector-controls' ); ?></th>
+				<th scope="col"><?php esc_html_e( 'Value', 'connector-controls' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,14 +39,14 @@ $config = Config::get_instance();
 		</tbody>
 	</table>
 	<?php else : ?>
-	<p><em><?php esc_html_e( 'No runtime configuration is defined yet.', 'example-integration' ); ?></em></p>
+	<p><em><?php esc_html_e( 'No runtime configuration is defined yet.', 'connector-controls' ); ?></em></p>
 	<?php endif; ?>
 
 	<form action="options.php" method="post">
 	<?php
 		settings_fields( AdminSettings::OPTION_GROUP );
 		do_settings_sections( Admin::OPTIONS_MENU_SLUG );
-		submit_button( __( 'Save settings', 'example-integration' ) );
+		submit_button( __( 'Save settings', 'connector-controls' ) );
 	?>
 	</form>
 </div>

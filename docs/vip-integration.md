@@ -1,6 +1,6 @@
 # VIP Integration
 
-Example Integration is the reference implementation of a WordPress VIP partner
+Connector Controls is the reference implementation of a WordPress VIP partner
 integration, built from the [VIP Integrations Starter Kit](https://github.com/Automattic/vip-integrations-starter-kit).
 It demonstrates the patterns WordPress VIP requires of partner integrations: a single runtime config constant read through a central `Config`
 class, graceful degradation when required config is missing, and Tracks-only
@@ -32,10 +32,10 @@ dev-env container (`vip dev-env shell`) it is preconfigured.
 
 ## Runtime Config
 
-Config constant: `VIP_EXAMPLE_INTEGRATION_CONFIG`
+Config constant: `VIP_CONNECTOR_CONTROLS_CONFIG`
 
 The VIP platform defines the constant (a plain PHP associative array) before
-the plugin loads. All reads go through `ExampleVendor\ExampleIntegration\Config`.
+the plugin loads. All reads go through `Automattic\ConnectorControls\Config`.
 
 Required values:
 
@@ -49,17 +49,17 @@ Optional values:
 Example valid local mock config:
 
 ```php
-define( 'VIP_EXAMPLE_INTEGRATION_CONFIG', [
+define( 'VIP_CONNECTOR_CONTROLS_CONFIG', [
 	'api_base_url'    => 'https://api.vendor.example',
 	'api_token'       => 'mock-token',
-	'signature_label' => 'Example Integration (dev)',
+	'signature_label' => 'Connector Controls (dev)',
 ] );
 ```
 
 Example incomplete config (setup in progress — a required value is missing):
 
 ```php
-define( 'VIP_EXAMPLE_INTEGRATION_CONFIG', [
+define( 'VIP_CONNECTOR_CONTROLS_CONFIG', [
 	'api_base_url' => 'https://api.vendor.example',
 ] );
 ```
@@ -74,12 +74,12 @@ wired in.
 Telemetry uses the helper in `inc/class-telemetry.php`, which wraps the VIP
 Telemetry API (Tracks events only, no Stats) behind a `class_exists` guard so
 environments without VIP MU plugins no-op. Event names are prefixed with
-`example_integration_`. Never include secrets, raw content, email addresses,
+`connector_controls_`. Never include secrets, raw content, email addresses,
 or customer credentials in event properties.
 
 | Name                                | Type   | Trigger                                    | Properties                         | Notes                                    |
 | ----------------------------------- | ------ | ------------------------------------------ | ---------------------------------- | ---------------------------------------- |
-| `example_integration_sum_requested` | Tracks | The REST `/sum` endpoint serves a request. | `route`, `plugin_version` (global) | Usage metadata only; no request payload. |
+| `connector_controls_sum_requested` | Tracks | The REST `/sum` endpoint serves a request. | `route`, `plugin_version` (global) | Usage metadata only; no request payload. |
 
 ## Making it your own
 

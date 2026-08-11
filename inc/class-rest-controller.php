@@ -1,13 +1,13 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
 final class REST_Controller {
-	public const NAMESPACE = 'example-integration/v1';
+	public const NAMESPACE = 'connector-controls/v1';
 
 	/** @var self|null */
 	private static $instance;

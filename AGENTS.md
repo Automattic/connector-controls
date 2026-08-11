@@ -21,7 +21,7 @@ submitting.
 
 | Path                                              | What lives here                                                                                            |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `example-integration.php`                         | Plugin entry file: header, guards, constants, autoloader. Renamed on setup.                                |
+| `connector-controls.php`                         | Plugin entry file: header, guards, constants, autoloader. Renamed on setup.                                |
 | `inc/`                                            | Runtime code (autoloaded via Composer classmap). `class-config.php`, `class-telemetry.php`, REST handlers. |
 | `views/`                                          | Admin page templates.                                                                                      |
 | `fixtures/`                                       | Mock runtime configs for local dev and tests — see `fixtures/README.md`.                                   |
@@ -57,7 +57,7 @@ pattern rather than introducing a new one.
 
 - **Baseline:** PHP 8.2+, WordPress 6.9 / 7.0. Do not use syntax newer than 8.2.
 - **Namespaces:** everything under the integration root namespace (example:
-  `ExampleVendor\ExampleIntegration`). One class per file, filenames
+  `Automattic\ConnectorControls`). One class per file, filenames
   `class-<name>.php`, autoloaded via the Composer classmap on `inc/`.
 - **Coding standards:** WordPress VIP rules via PHPCS (`composer phpcs`). Escape
   output, sanitize input, use `wpdb->prepare`, add capability checks on admin

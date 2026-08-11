@@ -1,17 +1,17 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 /**
  * Centralized reader for the runtime configuration the VIP platform injects
- * as the VIP_EXAMPLE_INTEGRATION_CONFIG PHP constant (a plain associative
+ * as the VIP_CONNECTOR_CONTROLS_CONFIG PHP constant (a plain associative
  * array, defined before the plugin is loaded).
  *
  * Missing or invalid required fields must never cause a fatal error: callers
  * check is_ready() and disable the affected behavior instead.
  */
 final class Config {
-	public const CONSTANT_NAME = 'VIP_EXAMPLE_INTEGRATION_CONFIG';
+	public const CONSTANT_NAME = 'VIP_CONNECTOR_CONTROLS_CONFIG';
 
 	public const REQUIRED_FIELDS = [ 'api_base_url', 'api_token' ];
 

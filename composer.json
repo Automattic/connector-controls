@@ -1,5 +1,5 @@
 {
-  "name": "example-vendor/example-integration",
+  "name": "automattic/connector-controls",
   "type": "wordpress-plugin",
   "license": "MIT",
   "require": {
