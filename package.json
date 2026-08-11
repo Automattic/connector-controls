@@ -1,11 +1,11 @@
 {
-  "name": "e2e",
+  "name": "connector-controls-e2e",
   "version": "1.0.0",
   "private": "true",
   "keywords": [],
-  "author": "",
+  "author": "Automattic",
   "license": "GPL-2.0-or-later",
-  "description": "",
+  "description": "End-to-end tests for the Connector Controls WordPress VIP integration.",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
     "@types/node": "^25.0.3"

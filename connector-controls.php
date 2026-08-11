@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Connector Controls
- * Description: Reference implementation of a WordPress VIP partner integration, built from the VIP Integrations Starter Kit.
+ * Description: Secure, centralized at-rest storage and management for WordPress Core Connectors credentials on WordPress VIP.
  * Version: 1.0.0
  * Requires at least: 6.9
  * Requires PHP: 8.2
