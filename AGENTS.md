@@ -6,36 +6,39 @@ matches your task.
 
 ## What this repo is
 
-The **WordPress VIP Integration Starter Kit**: a complete, runnable WordPress VIP
-plugin that a partner clones to build an integration for the VIP Integration
-Center. It doubles as the reference implementation of the VIP integration
-requirements. The example integration exposes a small REST endpoint and reads
-its settings from a single VIP-provided config constant.
+**Connector Controls**: a WordPress VIP integration that will provide secure,
+centralized at-rest storage and management for WordPress Core Connectors
+credentials (Core stores them in the database in plaintext today). It is a
+complete, runnable VIP integration, templated from the [VIP Integrations Starter
+Kit](https://github.com/Automattic/vip-integrations-starter-kit) and destined to
+be vendored into `vip-go-mu-plugins-ext`.
 
-A partner runs `composer setup` (or `vip-integration init`) to rewrite the
-example names to theirs, writes their code under `inc/`, fills in
-`vip-manifest.yaml`, and validates with `vip-integration validate` before
-submitting.
+**Status: early development.** The credential storage and management features are
+not built yet. The REST `/sum` endpoint, the footer signature, and the
+`enabled`/`message` settings are placeholder scaffolding inherited from the kit —
+expect to replace them, not extend them. Runtime config is read from a single
+VIP-provided constant through `inc/class-config.php`.
 
 ## Map
 
 | Path                                              | What lives here                                                                                            |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `connector-controls.php`                         | Plugin entry file: header, guards, constants, autoloader. Renamed on setup.                                |
+| `connector-controls.php`                          | Plugin entry file: header, guards, constants, autoloader.                                                  |
 | `inc/`                                            | Runtime code (autoloaded via Composer classmap). `class-config.php`, `class-telemetry.php`, REST handlers. |
 | `views/`                                          | Admin page templates.                                                                                      |
 | `fixtures/`                                       | Mock runtime configs for local dev and tests — see `fixtures/README.md`.                                   |
 | `tests/phpunit/`, `tests/e2e/`                    | PHPUnit and Playwright tests.                                                                              |
 | `vip-manifest.yaml`                               | The handoff manifest VIP registers the integration from.                                                   |
 | `vip-manifest.schema.json`                        | JSON Schema the manifest is validated against.                                                             |
-| `bin/setup.php`                                   | The `composer setup` prefix-rewrite scaffolder.                                                            |
+| `bin/setup.php`                                   | One-shot prefix-rewrite scaffolder from the kit. Already applied; kept for reference.                      |
 | `docs/`                                           | Human docs. Start with `docs/vip-integration.md`.                                                          |
 | `.wpvip/`, `.devcontainer/`, `.github/workflows/` | VIP dev-env, Codespaces, and CI.                                                                           |
 
 ## Non-negotiables
 
 - **Do not delete the app folders.** Every top-level directory is part of a
-  complete VIP application (`docs/directories.md`). Removing them breaks the kit.
+  complete VIP application (`docs/directories.md`). Removing them breaks the
+  integration.
 - **One config constant.** All runtime config comes from a single VIP-defined
   constant read through `inc/class-config.php`. Never read `$_ENV`, hardcode
   secrets, or add a second config source.
@@ -44,9 +47,10 @@ submitting.
 - **Tracks-only telemetry.** Telemetry goes through `inc/class-telemetry.php`
   (VIP Tracks API, `class_exists`-guarded). No Stats/Pixel. Never put secrets,
   raw content, emails, or credentials in event properties.
-- **Match the prefix set.** Slug, namespace, constant, and telemetry prefix all
-  derive from one vendor+name pair (see `docs/vip-integration.md`). Keep them in
-  sync — `composer setup` is the source of that mapping.
+- **Keep the prefix set in sync.** Slug (`connector-controls`), namespace
+  (`Automattic\ConnectorControls`), config constant (`VIP_CONNECTOR_CONTROLS_CONFIG`),
+  and telemetry/option prefix (`connector_controls_`) all belong together. If you
+  rename one, rename all — including `vip-manifest.yaml`.
 
 ## Conventions
 
@@ -56,9 +60,9 @@ pattern rather than introducing a new one.
 ### PHP
 
 - **Baseline:** PHP 8.2+, WordPress 6.9 / 7.0. Do not use syntax newer than 8.2.
-- **Namespaces:** everything under the integration root namespace (example:
-  `Automattic\ConnectorControls`). One class per file, filenames
-  `class-<name>.php`, autoloaded via the Composer classmap on `inc/`.
+- **Namespaces:** everything under the `Automattic\ConnectorControls` root
+  namespace. One class per file, filenames `class-<name>.php`, autoloaded via the
+  Composer classmap on `inc/`.
 - **Coding standards:** WordPress VIP rules via PHPCS (`composer phpcs`). Escape
   output, sanitize input, use `wpdb->prepare`, add capability checks on admin
   and REST surfaces. `composer phpcbf` auto-fixes what it can.
@@ -85,9 +89,9 @@ and invalid states — wire new cases in there.
 
 Record events through `inc/class-telemetry.php` only. It wraps the VIP Tracks
 API behind a `class_exists` guard so non-VIP environments no-op. Event names are
-prefixed with the integration's snake_case name. Properties carry usage metadata
-only — never secrets, request payloads, emails, or credentials. Declare every
-event in the `telemetry` section of `vip-manifest.yaml`.
+prefixed with `connector_controls_`. Properties carry usage metadata only —
+never secrets, request payloads, emails, or credentials. Declare every event in
+the `telemetry` section of `vip-manifest.yaml`.
 
 ### Tests
 
@@ -113,13 +117,6 @@ Details live in `docs/vip-integration.md`.
 ```sh
 composer install        # PHP dependencies
 npm ci                  # Node dependencies (Playwright)
-composer setup          # rewrite the example prefix set to your names (one-shot)
-```
-
-`composer setup` is interactive; non-interactively:
-
-```sh
-composer setup -- --vendor="Acme" --name="Content Sync"
 ```
 
 ### Local environment

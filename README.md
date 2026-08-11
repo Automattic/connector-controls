@@ -1,36 +1,32 @@
-# WordPress VIP Integration Starter Kit
+# Connector Controls
 
-Welcome to WordPress VIP! This repository is a starting point for developing an integration and submitting for the Integrations Center.
+Connector Controls is a WordPress VIP integration that provides secure, centralized at-rest storage and management for **WordPress Core Connectors** credentials.
 
-It contains an example of fully configured VIP local and cloud development environments along with unit tests, end-to-end tests, static analysis and linting.
+WordPress Core stores Connector credentials (Settings → Connectors) in the site database in plain text, masked only in the UI, and any plugin can read them. Connector Controls gives VIP customers an encrypted, centrally managed layer to store those credentials and share them securely across their WordPress applications — the basis for centralized reporting and metering.
 
-Utilizing these tools will allow you to submit the new versions of your integrations and us to deploy the code with confidence.
+> **Status: early development.** This repository is a working WordPress VIP integration scaffold — templated from the [VIP Integrations Starter Kit](https://github.com/Automattic/vip-integrations-starter-kit) — with the credential storage and management features still to be built. The example REST endpoint and settings screen are placeholder scaffolding. Work is tracked in the Connector Controls project (VIPPROD).
 
-The kit implements the WordPress VIP integration requirements and doubles as a reference implementation: runtime config via a single VIP-provided constant, config fixtures, Tracks telemetry, `composer test`, and the [handoff manifest](/docs/manifest.md) VIP registers the integration from. See [/docs/vip-integration.md](/docs/vip-integration.md) for the operational details. Check conformance with the [`vip-integration`](https://github.com/Automattic/integration) CLI (`npx @automattic/vip-integration validate`).
+Runtime config comes from a single VIP-provided constant read through a central `Config` class, with graceful degradation when config is missing or incomplete, Tracks-only telemetry, and the [handoff manifest](/docs/manifest.md) VIP registers the integration from. See [/docs/vip-integration.md](/docs/vip-integration.md) for the operational details.
 
 ## Technology
 
-We used tools that we consider the best technology in the industry with convenience in mind. These are the tools we use on a day-to-day basis to ensure code quality on WordPress VIP platform.
+These are the tools used to ensure code quality on the WordPress VIP platform.
 
 ### Unit Tests
 
-We utilize [PHPUnit 9](https://phpunit.de/index.html) for unit tests. For an example of a test suite please refer to [/tests/phpunit](tests/phpunit/) folder.
+[PHPUnit 9](https://phpunit.de/index.html) for unit tests. See [/tests/phpunit](tests/phpunit/).
 
 ### End-to-end tests
 
-For end-to-end tests we use [Playwright](https://playwright.dev/). Examples can be found in [/tests/e2e](/tests/e2e).
+[Playwright](https://playwright.dev/) for end-to-end tests. See [/tests/e2e](/tests/e2e).
 
 ### Static analysis
 
-[Psalm](https://psalm.dev/) is a free & open-source static analysis tool that helps you identify problems in your code.
+[Psalm](https://psalm.dev/) for static analysis. Psalm relies on type annotations — see [/inc](/inc) for the expected docblock style.
 
-Please note, for Psalm to work properly you will need to annotate your PHP code. For examples please refer to [/inc](/inc).
+### Linting and coding standards
 
-### Linting and coding standards.
-
-Linting and coding standards are powered by [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) (commonly known as PHPCS) along with WordPress VIP and WordPress core rulesets.
-
-For more information please refer to [linting doc](/docs/linting.md).
+Linting and coding standards are powered by [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) (PHPCS) with the WordPress VIP and WordPress core rulesets. See the [linting doc](/docs/linting.md).
 
 ### GitHub Actions
 
@@ -46,53 +42,50 @@ CI runs on every push and pull request to `main`:
 
 ## Repository structure
 
-⚠️ You may notice the repository contains several folders. These should not be removed as they constitute a complete WordPress VIP application. A brief description is available in [/docs/directories.md](/docs/directories.md)
+⚠️ The repository contains several folders that together constitute a complete WordPress VIP application; they should not be removed. A brief description is available in [/docs/directories.md](/docs/directories.md).
 
-For more information on how our codebase is structured, see https://docs.wpvip.com/technical-references/vip-codebase/.
+For more on how the codebase is structured, see https://docs.wpvip.com/technical-references/vip-codebase/.
 
 ## Local installation and development
 
-To fully leverage the starter kit you will need to have the following tools installed: [Composer](https://getcomposer.org/), [Node.js](https://nodejs.org/en), NPM (installed with Node.js), [Docker](https://www.docker.com/), [VIP-CLI](https://docs.wpvip.com/vip-cli/).
+You will need [Composer](https://getcomposer.org/), [Node.js](https://nodejs.org/en) and NPM, [Docker](https://www.docker.com/), and the [VIP-CLI](https://docs.wpvip.com/vip-cli/).
 
-📝 While we usually recommend Docker Desktop we understand that it may be not possible to utilize it for your organization. The Starter Kit is compatible with alternative container runtimes like Colima and Rancher Desktop. For details please refer to [our documentation](https://docs.wpvip.com/vip-local-development-environment/requirements/#Alternatives-to-Docker-Desktop).
+📝 Docker Desktop is recommended, but the environment is compatible with alternative container runtimes like Colima and Rancher Desktop — see [our documentation](https://docs.wpvip.com/vip-local-development-environment/requirements/#Alternatives-to-Docker-Desktop).
 
-Assuming you have prerequisites installed, follow these steps to set up the local environment.
-
-1. Clone the repository and make it your own.
-2. Change the working directory to your repository.
-3. Install Composer dependencies
+1. Clone the repository and change into its directory.
+2. Install Composer dependencies:
 
 ```sh
 composer install
 ```
 
-4. Install Node.js dependencies
+3. Install Node.js dependencies:
 
 ```sh
 npm i
 ```
 
-5. Rename the example prefix set (slug, namespace, constants) to your integration's names:
-
-```sh
-composer setup
-```
-
-6. Create and start a WPVIP local development instance:
+4. Create and start a WPVIP local development instance:
 
 ```sh
 vip dev-env create
 vip dev-env start
 ```
 
-7. Write code, write tests. Or the other way around! `composer test` runs both suites (the e2e half needs the dev-env from the previous step running — see [/docs/vip-integration.md](/docs/vip-integration.md)).
+5. Write code, write tests. Or the other way around! `composer test` runs both suites (the e2e half needs the dev-env from the previous step running — see [/docs/vip-integration.md](/docs/vip-integration.md)).
 
-📝 For convenience, this repository contains a special configuration file [vip-dev-env.yml](/.wpvip/vip-dev-env.yml), feel free to tweak it to your needs. For more in-depth guide to VIP Local Development Environments please refer to [our documentation site](https://docs.wpvip.com/vip-local-development-environment/create/).
+📝 For convenience, this repository contains a [vip-dev-env.yml](/.wpvip/vip-dev-env.yml) configuration file; tweak it to your needs. For an in-depth guide to VIP Local Development Environments, see [our documentation site](https://docs.wpvip.com/vip-local-development-environment/create/).
 
 ## Cloud-based development
 
-We leverage GitHub Codespaces. There are no set up steps. On the first start of the codespace it will take a few minutes to build. Once the build runs you'll have a working environment. You can use either Web-based editor or local VSCode.
+GitHub Codespaces is supported with no set-up steps. The first start builds the environment (a few minutes); afterwards you can use either the web editor or local VS Code.
 
-## Submitting your plugin to WordPress VIP Integrations Center
+## Releasing
 
-Once you're confident your code is ready for the prime time, please contact your Technology Partner Manager for the next steps.
+Conformance is checked with the external `vip-integration` CLI:
+
+```sh
+npx @automattic/vip-integration validate
+```
+
+Tagged versions of this integration are vendored into [`vip-go-mu-plugins-ext`](https://github.com/Automattic/vip-go-mu-plugins-ext/tree/trunk/vip-integrations), which is mounted onto VIP applications. Keep [`vip-manifest.yaml`](/vip-manifest.yaml) in sync with the code before cutting a release — see [/docs/manifest.md](/docs/manifest.md).
