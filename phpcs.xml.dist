@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <ruleset
-		name="VIP Sites"
+		name="Connector Controls"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
-	<description>Custom ruleset for VIP sites.</description>
+	<description>Coding standards for the Connector Controls VIP integration.</description>
 
 	<!-- For help in understanding this file: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
 	<!-- For help in using PHPCS: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
@@ -54,5 +54,14 @@
 
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<!-- Flag translation calls that use the wrong or a missing text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="connector-controls"/>
+			</property>
+		</properties>
 	</rule>
 </ruleset>
