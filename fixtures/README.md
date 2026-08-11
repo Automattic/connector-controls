@@ -1,7 +1,7 @@
 # Config fixtures
 
 On the VIP platform, runtime configuration is injected as a single PHP
-constant (`VIP_EXAMPLE_INTEGRATION_CONFIG`) holding a plain associative array,
+constant (`VIP_CONNECTOR_CONTROLS_CONFIG`) holding a plain associative array,
 defined **before** the plugin is loaded. These fixtures mock that constant for
 local development and automated testing.
 

@@ -1,15 +1,15 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 use WP_UnitTestCase;
 
 /**
- * @covers \ExampleVendor\ExampleIntegration\AdminSettings
- * @uses \ExampleVendor\ExampleIntegration\InputFactory
- * @uses \ExampleVendor\ExampleIntegration\Settings
- * @uses \ExampleVendor\ExampleIntegration\SettingsValidator::ensure_data_shape
+ * @covers \Automattic\ConnectorControls\AdminSettings
+ * @uses \Automattic\ConnectorControls\InputFactory
+ * @uses \Automattic\ConnectorControls\Settings
+ * @uses \Automattic\ConnectorControls\SettingsValidator::ensure_data_shape
  */
 class AdminSettingsTest extends WP_UnitTestCase {
 	public static function setUpBeforeClass(): void {
@@ -35,7 +35,7 @@ class AdminSettingsTest extends WP_UnitTestCase {
 	 * @global mixed[] $wp_settings_sections
 	 * @global mixed[] $wp_settings_fields
 	 *
-	 * @uses ExampleVendor\ExampleIntegration\SettingsValidator::ensure_data_shape
+	 * @uses Automattic\ConnectorControls\SettingsValidator::ensure_data_shape
 	 */
 	public function test_construct(): void {
 		global $wp_settings_sections;

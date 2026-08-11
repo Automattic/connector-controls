@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 /**
  * @psalm-import-type SettingsArray from Settings

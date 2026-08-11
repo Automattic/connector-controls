@@ -2,7 +2,7 @@
 
 | Path                       | Purpose                                                                                       |
 | -------------------------- | --------------------------------------------------------------------------------------------- |
-| `example-integration.php`  | Plugin entry file: header, guards, constants, autoloader, start. Kept intentionally small.    |
+| `connector-controls.php`  | Plugin entry file: header, guards, constants, autoloader, start. Kept intentionally small.    |
 | `inc/`                     | The integration's WordPress runtime code (autoloaded via Composer classmap).                  |
 | `views/`                   | Admin page templates.                                                                         |
 | `fixtures/`                | Mock runtime configs for local development and tests (see `fixtures/README.md`).              |

@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 /**
  * Tracks-only telemetry helper — the pattern VIP integrations should reuse.
@@ -13,7 +13,7 @@ namespace ExampleVendor\ExampleIntegration;
  * event properties.
  */
 final class Telemetry {
-	public const EVENT_PREFIX = 'example_integration_';
+	public const EVENT_PREFIX = 'connector_controls_';
 
 	/** @var self|null */
 	private static $instance;
@@ -33,7 +33,7 @@ final class Telemetry {
 		if ( class_exists( \Automattic\VIP\Telemetry\Telemetry::class ) ) {
 			$this->client = new \Automattic\VIP\Telemetry\Telemetry(
 				self::EVENT_PREFIX,
-				[ 'plugin_version' => VIP_EXAMPLE_INTEGRATION_VERSION ]
+				[ 'plugin_version' => VIP_CONNECTOR_CONTROLS_VERSION ]
 			);
 		}
 	}

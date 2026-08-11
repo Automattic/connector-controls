@@ -1,15 +1,15 @@
 <?php
 declare(strict_types = 1);
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 use LogicException;
 use WP_UnitTestCase;
 
 /**
  * @psalm-import-type SettingsArray from Settings
- * @covers \ExampleVendor\ExampleIntegration\Settings
- * @uses \ExampleVendor\ExampleIntegration\SettingsValidator::ensure_data_shape
+ * @covers \Automattic\ConnectorControls\Settings
+ * @uses \Automattic\ConnectorControls\SettingsValidator::ensure_data_shape
  */
 class SettingsTest extends WP_UnitTestCase {
 	public function test_defaults(): void {

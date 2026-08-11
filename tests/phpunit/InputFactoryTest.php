@@ -1,13 +1,13 @@
 <?php
 
-namespace ExampleVendor\ExampleIntegration;
+namespace Automattic\ConnectorControls;
 
 use WP_UnitTestCase;
 
 /**
  * @psalm-suppress MissingConstructor
  * @psalm-import-type InputArgs from InputFactory
- * @covers \ExampleVendor\ExampleIntegration\InputFactory
+ * @covers \Automattic\ConnectorControls\InputFactory
  */
 class InputFactoryTest extends WP_UnitTestCase {
 	/** @var InputFactory */
