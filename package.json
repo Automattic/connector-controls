@@ -4,7 +4,7 @@
   "private": "true",
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
