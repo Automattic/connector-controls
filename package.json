@@ -8,7 +8,7 @@
   "description": "End-to-end tests for the Connector Controls WordPress VIP integration.",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
-    "@types/node": "^25.0.3"
+    "@types/node": "^26.2.0"
   },
   "scripts": {
     "build": "echo 'build: not applicable — this integration ships no compiled assets (see docs/vip-integration.md)'",
