@@ -22,15 +22,15 @@ jobs:
     name: Psalm
     steps:
       - name: Check out source code
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v4.1.7
+        uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v4.1.7
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
           coverage: none
 
       - name: Install dependencies
-        uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # 3.1.1
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
 
       - name: Run psalm
         run: composer psalm -- --output-format=github
