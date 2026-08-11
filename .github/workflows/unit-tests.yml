@@ -49,7 +49,7 @@ jobs:
           - { wp: nightly, ms: 'yes', php: '8.5' }
     services:
       mysql:
-        image: mariadb:latest
+        image: mariadb:lts@sha256:759869cb6f003234a95c6384cdee245b4bce7de26913fe607a8110362c0c007d
         ports:
           - "3306:3306"
         env:
@@ -60,7 +60,9 @@ jobs:
           MYSQL_DATABASE: wordpress_test
     steps:
       - name: Check out source code
-        uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v4.1.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install subversion
         run: sudo apt-get update && sudo apt-get install subversion
@@ -88,7 +90,7 @@ jobs:
         uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
 
       - name: Set up WordPress and WordPress Test Library
-        uses: sjinks/setup-wordpress-test-library@9726426f2a40656274560a0394718177f8adb424 # 3.0.0
+        uses: sjinks/setup-wordpress-test-library@9726426f2a40656274560a0394718177f8adb424 # v3.0.0
         with:
           version: ${{ matrix.config.wp }}
 
@@ -98,16 +100,20 @@ jobs:
 
       - name: Verify MariaDB connection
         run: |
-          while ! mysqladmin ping -h 127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} --silent; do
+          while ! mysqladmin ping -h 127.0.0.1 -P ${MYSQL_PORT} --silent; do
             sleep 1
           done
         timeout-minutes: 1
+        env:
+          MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
 
       - name: Run tests
         run: |
-          if [ "${{ steps.coverage.outputs.coverage }}" != 'none' ]; then
+          if [ "${COVERAGE}" != 'none' ]; then
             CMD=test:coverage
           else
             CMD=test:unit
           fi
           composer "${CMD}" -- --order-by=random
+        env:
+          COVERAGE: ${{ steps.coverage.outputs.coverage }}
