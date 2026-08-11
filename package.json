@@ -1,0 +1,18 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "private": "true",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.45.3",
+    "@types/node": "^25.0.3"
+  },
+  "scripts": {
+    "build": "echo 'build: not applicable — this integration ships no compiled assets (see docs/vip-integration.md)'",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  }
+}

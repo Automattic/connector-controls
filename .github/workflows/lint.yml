@@ -1,0 +1,41 @@
+name: Code Standards Compliance Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  php:
+    name: Lint PHP files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v4.1.7
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
+        with:
+          coverage: none
+        env:
+          fail-fast: 'true'
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # 3.1.1
+
+      - name: Add error matcher
+        run: echo "::add-matcher::$(pwd)/.github/checkstyle-problem-matcher.json"
+
+      - name: Run style check
+        run: composer phpcs -- --report=checkstyle
