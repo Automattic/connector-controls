@@ -32,7 +32,8 @@ dev-env container (`vip dev-env shell`) it is preconfigured.
 
 ## Runtime Config
 
-Config constant: `VIP_CONNECTOR_CONTROLS_CONFIG`
+Config constant: `VIP_CONNECTOR_CONTROLS_CONFIG` — derived from the slug, not
+declared in the manifest.
 
 The VIP platform defines the constant (a plain PHP associative array) before
 the plugin loads. All reads go through `Automattic\ConnectorControls\Config`.
@@ -74,12 +75,17 @@ wired in.
 Telemetry uses the helper in `inc/class-telemetry.php`, which wraps the VIP
 Telemetry API (Tracks events only, no Stats) behind a `class_exists` guard so
 environments without VIP MU plugins no-op. Event names are prefixed with
-`connector_controls_`. Never include secrets, raw content, email addresses,
+`connectorcontrols_`. Never include secrets, raw content, email addresses,
 or customer credentials in event properties.
 
-| Name                                | Type   | Trigger                                    | Properties                         | Notes                                    |
-| ----------------------------------- | ------ | ------------------------------------------ | ---------------------------------- | ---------------------------------------- |
-| `connector_controls_sum_requested` | Tracks | The REST `/sum` endpoint serves a request. | `route`, `plugin_version` (global) | Usage metadata only; no request payload. |
+A Tracks prefix is **a single word plus a trailing underscore**. Event names are
+`<prefix><event>`, so the prefix has to read as one token identifying the
+product: squash a multi-word integration name rather than joining its words with
+underscores — `connectorcontrols_`, not `connector_controls_`.
+
+| Name                              | Type   | Trigger                                    | Properties                         | Notes                                    |
+| --------------------------------- | ------ | ------------------------------------------ | ---------------------------------- | ---------------------------------------- |
+| `connectorcontrols_sum_requested` | Tracks | The REST `/sum` endpoint serves a request. | `route`, `plugin_version` (global) | Usage metadata only; no request payload. |
 
 ## Making it your own
 
