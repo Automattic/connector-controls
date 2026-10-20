@@ -32,7 +32,8 @@ dev-env container (`vip dev-env shell`) it is preconfigured.
 
 ## Runtime Config
 
-Config constant: `VIP_CONNECTOR_CONTROLS_CONFIG`
+Config constant: `VIP_CONNECTOR_CONTROLS_CONFIG` — derived from the slug, not
+declared in the manifest.
 
 The VIP platform defines the constant (a plain PHP associative array) before
 the plugin loads. All reads go through `Automattic\ConnectorControls\Config`.
