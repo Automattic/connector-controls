@@ -95,11 +95,11 @@ reports. **Names only — never values.** Never declare secrets, credentials, ra
 content, email addresses, or customer data as properties. Omit this whole
 section if the integration records no telemetry.
 
-| Field                | Required | Notes                                                           |
-| -------------------- | -------- | --------------------------------------------------------------- |
-| `prefix`             | yes      | Event name prefix ending in an underscore, e.g. `acme_widget_`. |
-| `default_properties` | yes      | Property names added to every event (may be an empty list).     |
-| `events`             | yes      | At least one event (below).                                     |
+| Field                | Required | Notes                                                                                                                                   |
+| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`             | yes      | Event name prefix: a single word plus a trailing underscore, e.g. `acmewidget_`. Squash a multi-word name — `acme_widget_` is rejected. |
+| `default_properties` | yes      | Property names added to every event (may be an empty list).                                                                             |
+| `events`             | yes      | At least one event (below).                                                                                                             |
 
 Each entry in `events`:
 

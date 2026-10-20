@@ -49,8 +49,9 @@ VIP-provided constant through `inc/class-config.php`.
   raw content, emails, or credentials in event properties.
 - **Keep the prefix set in sync.** Slug (`connector-controls`), namespace
   (`Automattic\ConnectorControls`), config constant (`VIP_CONNECTOR_CONTROLS_CONFIG`),
-  and telemetry/option prefix (`connector_controls_`) all belong together. If you
-  rename one, rename all — including `vip-manifest.yaml`.
+  option prefix (`connector_controls_`) and telemetry prefix (`connectorcontrols_`)
+  all belong together. If you rename one, rename all — including
+  `vip-manifest.yaml`.
 
 ## Conventions
 
@@ -89,9 +90,12 @@ and invalid states — wire new cases in there.
 
 Record events through `inc/class-telemetry.php` only. It wraps the VIP Tracks
 API behind a `class_exists` guard so non-VIP environments no-op. Event names are
-prefixed with `connector_controls_`. Properties carry usage metadata only —
-never secrets, request payloads, emails, or credentials. Declare every event in
-the `telemetry` section of `vip-manifest.yaml`.
+prefixed with the integration's name squashed to a **single word** plus a
+trailing underscore (`connectorcontrols_`, never `connector_controls_`) — the
+Tracks prefix is one token, unlike the snake_case used for option keys.
+Properties carry usage metadata only — never secrets, request payloads, emails,
+or credentials. Declare every event in the `telemetry` section of
+`vip-manifest.yaml`.
 
 ### Tests
 

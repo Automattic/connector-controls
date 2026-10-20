@@ -13,7 +13,16 @@ namespace Automattic\ConnectorControls;
  * event properties.
  */
 final class Telemetry {
-	public const EVENT_PREFIX = 'connector_controls_';
+	/**
+	 * Tracks event prefix: a single word plus a trailing underscore.
+	 *
+	 * Event names are `<prefix><event>`, so the prefix identifies the product as
+	 * one token. Squash a multi-word integration name into one word rather than
+	 * joining it with underscores — `connectorcontrols_`, not
+	 * `connector_controls_` — otherwise the product name reads as part of the
+	 * event name.
+	 */
+	public const EVENT_PREFIX = 'connectorcontrols_';
 
 	/** @var self|null */
 	private static $instance;

@@ -52,11 +52,11 @@ runtime_config:
       help: Text rendered in the site footer signature.
 
 telemetry:
-  prefix: connector_controls_
+  prefix: connectorcontrols_
   default_properties:
     - plugin_version
   events:
-    - name: connector_controls_sum_requested
+    - name: connectorcontrols_sum_requested
       type: tracks
       trigger: The REST /sum endpoint serves a request.
       properties:
